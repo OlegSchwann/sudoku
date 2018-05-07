@@ -3,63 +3,10 @@
 <head>
     <meta charset="utf-8">
     <title>Судоку</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        main{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        table {
-            border-collapse: collapse;
-        }
-
-        table.sudoku-regions {
-            border: 1px solid #424242;
-
-        }
-
-        table.sudoku-regions tbody {
-            display: inline-block;
-            padding: 1px;
-        }
-
-        table.sudoku-cells tbody {
-            display: inline-block;
-            padding: 0;
-        }
-
-        table.sudoku-cells th {
-            border: 1px solid #757575;
-        }
-
-        table.sudoku-cells input {
-            border: none;
-            background-color: inherit;
-            height: 1.6rem;
-            width: 1.6rem;
-            padding: 0;
-            margin: 0;
-            font-size: 1.5rem;
-            text-align: center;
-        }
-
-        /* когда курсор находится над клеткой то правила подсвечиваются
-        #fafafa для группы
-        #f5f5f5 для строки
-        #eeeeee для непосредственно выбранного*/
-
-        table.sudoku-regions th:hover {
-            background-color: #f8f8f8;
-        }
-
-        table.sudoku-cells th:hover {
-            background-color: #f0f0f0;
-        }
-
-        .neighbor_cell{
-            border: 1px solid crimson;
-            background-color: crimson;
+        #test-button:{
+            outline: none;
         }
     </style>
 </head>
@@ -67,8 +14,8 @@
 <main>
     <div><h3>Судоку</h3></div>
     <div class="sudoku-field">
-        <!--id указывают координаты x→, y↓, -->
         <table class="sudoku-regions">
+            <!-- id="c_x_y" указывает координаты x→, y↓ -->
             <tbody>
             <tr>
                 <th>
@@ -297,7 +244,7 @@
                                        onchange="sudoku.update(5, 6, this.value);"></th>
                         </tr>
                         <tr>
-                            <th><input id="c_3_7" type="text" pattern="^\d$"
+                            <th><input id="c_3_7" type="text" pattern="^\d$" contenteditable="false"
                                        onchange="sudoku.update(3, 7, this.value);"></th>
                             <th><input id="c_4_7" type="text" pattern="^\d$"
                                        onchange="sudoku.update(4, 7, this.value);"></th>
@@ -349,71 +296,31 @@
             </tbody>
         </table>
     </div>
-    <script>
-        for (let x = 0; x < 9; ++x){
-            for (let y = 0; y < 9; ++y){
-                let cell = document.getElementById("c_"+x+"_"+y);
-                let neighbors_ids  = [];
-                for(let i = 0; i < x; ++i){
-                    neighbors_ids.push("c_"+i+"_"+y);
-                }
-                for(let i = x+1; i < 9; ++i){
-                    neighbors_ids.push("c_"+i+"_"+y);
-                }
-                for(let i = 0; i < y; ++i){
-                    neighbors_ids.push("c_"+x+"_"+i);
-                }
-                for(let i = y+1; i < 9; ++i){
-                    neighbors_ids.push("c_"+x+"_"+i);
-                }
-                cell.onmouseover = function (event) {
-                    for (let i in neighbors_ids){
-                        document.getElementById(neighbors_ids[i]).style.backgroundColor = "#f0f0f0";
-                    }
-                };
-                cell.onmouseout = function (event) {
-                    for (let i in neighbors_ids){
-                        document.getElementById(neighbors_ids[i]).style.backgroundColor = "inherit";
-                    }
-                };
-            }
-        }
-    </script>
-    <script>
-        "use strict";
-
-        class Sudoku {
-            constructor() {
-                this.actual_field = [
-                    ["", "", "", "", "", "", "", "", ""],
-                    ["", "", "", "", "", "", "", "", ""],
-                    ["", "", "", "", "", "", "", "", ""],
-                    ["", "", "", "", "", "", "", "", ""],
-                    ["", "", "", "", "", "", "", "", ""],
-                    ["", "", "", "", "", "", "", "", ""],
-                    ["", "", "", "", "", "", "", "", ""],
-                    ["", "", "", "", "", "", "", "", ""],
-                    ["", "", "", "", "", "", "", "", ""]
-                ];
-            }
-
-            /*служебная фунуция, которая обнавляет поле, когда пользователь изменяет число в input*/
-            update(x, y, value) {
-                this.actual_field[x][y] = value;
-                /*тут вызываем валидацию*/
-            }
-
-            /*обновляет в html представлении*/
-            set_cell(x, y, value) {
-                document.getElementById("c_" + x + "_" + y).value = value.toString();
-                this.actual_field[x][y] = value.toString();
-            }
-        }
-
-        let sudoku = new Sudoku();
-
-    </script>
+    <div class="control-panel">
+        <div>
+            <label for="erase-counter">оставить из 81: </label>
+            <input id="erase-counter" type="number" min="16" max="80" value="40">
+        </div>
+        <button id="rebuild">пересоздать</button>
+        <button id="solve">решить</button>
+    </div>
+    <div>
+        Использованные материалы:<br>
+        <a href="https://habrahabr.ru/post/192102/">Как генерировать карту.</a><br>
+        <a href="https://spin.atomicobject.com/2012/06/18/solving-sudoku-in-c-with-recursive-backtracking/">Как рекурсивно решить задачу.</a>
+    </div>
 </main>
-
+<!--TODO area:
+    сделать отрисовку поля +
+    сделать боковую панель с кнопками:
+        количество ячеек +
+        кнопка пересоздать +
+        кнопка решить +
+            функция решения
+    текстовая область снизу
+    ссылки на использованные материалы +
+    картинка
+-->
+<script src="sudoku.js"></script>
 </body>
 </html>
