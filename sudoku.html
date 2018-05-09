@@ -4,11 +4,6 @@
     <meta charset="utf-8">
     <title>Судоку</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        #test-button:{
-            outline: none;
-        }
-    </style>
 </head>
 <body>
 <main>
@@ -306,8 +301,9 @@
     </div>
     <div>
         Использованные материалы:<br>
-        <a href="https://habrahabr.ru/post/192102/">Как генерировать карту.</a><br>
-        <a href="https://spin.atomicobject.com/2012/06/18/solving-sudoku-in-c-with-recursive-backtracking/">Как рекурсивно решить задачу.</a>
+        <a href="https://habrahabr.ru/post/192102/" target="_blank">Как генерировать карту.</a><br>
+        <a href="https://spin.atomicobject.com/2012/06/18/solving-sudoku-in-c-with-recursive-backtracking/" target="_blank">Как рекурсивно решить задачу.</a><br>
+        <a href="https://gist.github.com/ehntoo/2e82675d00be41a5be2f74b9fc54ca86" target="_blank">Пример решения на С.</a>
     </div>
 </main>
 <!--TODO area:
@@ -321,6 +317,14 @@
     ссылки на использованные материалы +
     картинка
 -->
-<script src="sudoku.js"></script>
+<!--Этот файл содержит почти весь код - обслуживание кнопочек, поддержание стилей при наведении,
+поддержание поля в актуальном состоянии(изменение при введении пользавотелем нового числа)-->
+<script type="application/javascript" src="sudoku.js" charset="UTF-8"></script>
+<!--Этот файл содержит вставку на assembler, webassembly.
+Я не смог заставить работать алгоритм, написанный на js, и скомпилировал код на любимом C.-->
+<script type="text/javascript" src="solve_sudoku.js"></script>
+<!--Этот файл является обёрткой над С.-->
+<script type="application/javascript" src="solver.js"></script>
+
 </body>
 </html>
