@@ -15,6 +15,8 @@ class Solver {
                 let cell = parseInt(field[x][y]);
                 if (!isNaN(cell)) {
                     this.setCell(x, y, cell);
+                } else {
+                    this.setCell(x, y, 0);
                 }
             }
         }

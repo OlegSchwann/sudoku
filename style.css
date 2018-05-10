@@ -8,6 +8,10 @@ table {
     border-collapse: collapse;
 }
 
+a{
+    text-decoration: none;
+}
+
 table.sudoku-regions {
     border: 1px solid #424242;
 
@@ -92,6 +96,20 @@ input[readonly=""]{
     font-family: inherit;
 }
 
-a{
-    text-decoration: none;
+#comic{
+   visibility: hidden;
+}
+
+label[for=comic]{
+    cursor: pointer;
+    color: -moz-hyperlinktext;
+    color: -webkit-link;
+}
+
+#comic + div{
+    visibility: hidden;
+}
+/*при нажатии на текст будет показана картинка. При повторном скрыта.*/
+#comic:checked + div{
+    visibility: visible;
 }
